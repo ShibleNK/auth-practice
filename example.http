@@ -1,0 +1,67 @@
+
+### Create admin user
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "realadmin",
+  "email": "realadmin@example.com",
+  "password": "123456",
+  "roles": ["admin"]
+}
+
+### Create moderator user
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "moderator",
+  "email": "mod@example.com",
+  "password": "123456",
+  "roles": ["moderator"]
+}
+
+### Create user with both admin and moderator roles
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "superuser",
+  "email": "super@example.com",
+  "password": "123456",
+  "roles": ["admin", "moderator"]
+}
+
+### Create regular user
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "user",
+  "email": "user@example.com",
+  "password": "123456"
+}
+
+### Login as admin first
+POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+
+{
+  "username": "realadmin",
+  "password": "123456"
+}
+
+### Update user roles (use the token from admin login above)
+PUT http://localhost:8080/api/test/update-roles
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ1NTE1NTEwLCJleHAiOjE3NDU2MDE5MTB9.2nKooqh8wD6eqZEcxrF6DwfeNFoXvKEguVADkD_FfL4
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "roles": ["admin", "moderator"]
+}
+
+### Access protected route
+GET http://localhost:8080/api/test/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ1NTE0NTM3LCJleHAiOjE3NDU2MDA5Mzd9.nasjtmbL6crghmwwbXU5pTcpKnA2i4lDhkxbAvtgyAA
+Content-Type: application/json
